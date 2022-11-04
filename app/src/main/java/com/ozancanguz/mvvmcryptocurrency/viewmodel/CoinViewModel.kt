@@ -16,7 +16,7 @@ class CoinViewModel:ViewModel() {
     private val disposable= CompositeDisposable()
     private val coinservice=CoinService()
 
-    private var coins=MutableLiveData<List<Coin>>()
+    var coins=MutableLiveData<List<Coin>>()
 
     fun refresh(){
         fetchFromRemote()
@@ -29,13 +29,13 @@ class CoinViewModel:ViewModel() {
                    .subscribeOn(Schedulers.newThread())
                    .observeOn(AndroidSchedulers.mainThread())
                    .subscribeWith(object :DisposableSingleObserver<List<Coin>>(){
-                       override fun onSuccess(t: List<Coin>?) {
-                        coins.value=t!!
+                       override fun onSuccess(coinList: List<Coin>?) {
+                        coins.value=coinList!!
 
                        }
 
                        override fun onError(e: Throwable?) {
-                          Log.d("hata","veri cekilemedi")
+                          Log.d("error","veri cekilemedi")
                        }
 
 
